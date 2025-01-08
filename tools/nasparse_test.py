@@ -10,6 +10,7 @@ class TestNasparse(unittest.TestCase):
     other_nas_msg = '074413780004023fd121'
     other_nas_mt_msg = "023fd12100000000000000000000000000000000000000000000000000000000"
     ciphered_nas_msg = "27ed6146bd0162a5d62d62e1ce501720dc8bd84f1167fd"
+    imsi_attach_with_guti = "0741120bf6130014ff09e4d8427a8305f07000001000300202d031d127298080211001000010810600000000830600000000000d00000300ff0003130184000a000005000010005213001412415c0a009011034f18a6f15d0103c1000000000000"
 
     def run_heur(self, msg):
         buf = nasparse.parse_nas_message(msg)
@@ -33,6 +34,9 @@ class TestNasparse(unittest.TestCase):
 
     def test_ciphered_nas(self):
         self.assertEqual(self.run_heur(self.ciphered_nas_msg), False, "ciphered_nas_msg should not trigger heuristic")
+        
+    def test_attach_with_guti_nas(self):
+        self.assertEqual(self.run_heur(self.imsi_attach_with_guti), False, "imsi_attach_with_guti should not trigger heuristic")
 
 if __name__ == '__main__':
     unittest.main()

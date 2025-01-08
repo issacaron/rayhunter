@@ -25,7 +25,7 @@ def process_pcap(pcap_path):
         uplink = (gsmtap_hdr[4] & 0b01000000) >> 6
         buffer = pkt_data[header_end:]
         msg = nasparse.parse_nas_message(buffer, uplink)
-        triggered, message = nasparse.heur_ue_imsi_sent(msg)
+        triggered, message = nasparse.heur_identity_request_imsi(msg)
         if triggered:
             print(f"Frame {count} triggered heuristic: {message}")
 
